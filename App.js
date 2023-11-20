@@ -1,20 +1,28 @@
 import { useState } from "react"
 
-const StarContainer ={
-    display:'flex',
-    alignItems:'center',
-    gap:'20px'
-}
-const Star ={
-    display:'flex',
-    alignItems:'center',
-    gap:'4px',
-    cursor: 'pointer'
-}
-export default function StarRating({numStar=5}){
+
+
+export default function StarRating({numStar=5 ,color='yellow'}){
+ 
     const [starrating, setStarrating]=useState(3);
     const [temstarrating, setTemstarrating]=useState(0);
     
+    const StarContainer ={
+        display:'flex',
+        alignItems:'center',
+        gap:'20px',
+        color
+    }
+
+    const Star ={
+        display:'flex',
+        alignItems:'center',
+        gap:'4px',
+        cursor: 'pointer',
+        color
+    }
+
+
 function onRate(e){
     setStarrating(e)
     // ful = starrating
@@ -34,27 +42,29 @@ function onhovout(e){
    return( 
    <div style={StarContainer}>
    <div style={Star}>
-    {Array.from({length:numStar}, (_,i) => <Stars key={i+1} ful={temstarrating ? temstarrating>=i+1 : starrating>=i+1 }  onhov={()=>onhov(i+1)} onhovout={()=>onhovout(i+1)}  onRate={()=>onRate(i+1)}/>)}
+    {Array.from({length:numStar}, (_,i) => <Stars color={color} key={i+1} ful={temstarrating ? temstarrating>=i+1 : starrating>=i+1 }  onhov={()=>onhov(i+1)} onhovout={()=>onhovout(i+1)}  onRate={()=>onRate(i+1)}/>)}
     </div>
         <p>{temstarrating || starrating || ''}</p>
     </div>
     
 )}
 
-const sta={
-    height:'20px',
-    width:'20px',
 
-}
 
-function Stars({onRate,ful,onhov,onhovout}){
+function Stars({onRate,ful,onhov,onhovout,color}){
+    const sta={
+        height:'20px',
+        width:'20px',
+        color
+    
+    }
     return(
         <span style={sta} onClick={onRate} onMouseEnter={onhov} onMouseOut={onhovout}>
        {ful ? <svg
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 20 20"
-  fill="#000"
-  stroke="#000"
+  fill={color}
+  stroke={color}
 >
   <path
     d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
