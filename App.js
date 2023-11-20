@@ -1,8 +1,8 @@
 import { useState } from "react"
 
 
-
-export default function StarRating({numStar=5 ,color='yellow'}){
+// , message='message'/
+export default function StarRating({numStar=5 ,color='yellow',className='',message=[] }){
  
     const [starrating, setStarrating]=useState(3);
     const [temstarrating, setTemstarrating]=useState(0);
@@ -40,11 +40,11 @@ function onhovout(e){
 
 
    return( 
-   <div style={StarContainer}>
+   <div style={StarContainer} className={className}>
    <div style={Star}>
     {Array.from({length:numStar}, (_,i) => <Stars color={color} key={i+1} ful={temstarrating ? temstarrating>=i+1 : starrating>=i+1 }  onhov={()=>onhov(i+1)} onhovout={()=>onhovout(i+1)}  onRate={()=>onRate(i+1)}/>)}
     </div>
-        <p>{temstarrating || starrating || ''}</p>
+        <p>{message.length === numStar ? message[temstarrating ?  temstarrating - 1 : starrating-1] : temstarrating || starrating || ''}</p>
     </div>
     
 )}
